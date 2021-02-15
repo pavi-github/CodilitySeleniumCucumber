@@ -1,0 +1,36 @@
+[
+  {
+    "line": 1,
+    "elements": [
+      {
+        "start_timestamp": "2021-02-15T20:05:19.487Z",
+        "line": 3,
+        "name": "Order the T-shirt",
+        "description": "",
+        "id": "order-and-verify-t-shirt;order-the-t-shirt",
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 13178000000,
+              "status": "passed"
+            },
+            "line": 4,
+            "name": "Login to shopping portal",
+            "match": {
+              "location": "stepDef.shoppingPortalSteps.login_to_shopping_portal()"
+            },
+            "keyword": "Given "
+          }
+        ]
+      }
+    ],
+    "name": "Order and Verify T-Shirt",
+    "description": "",
+    "id": "order-and-verify-t-shirt",
+    "keyword": "Feature",
+    "uri": "file:src/test/resources/Features/Order.feature",
+    "tags": []
+  }
+]
