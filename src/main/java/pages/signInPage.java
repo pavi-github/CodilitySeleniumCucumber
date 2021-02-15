@@ -11,6 +11,7 @@ public class signInPage {
     private By txt_password=By.id("passwd");
     private By but_SubmitLogin = By.name("SubmitLogin");
 
+
     public signInPage(WebDriver driver){
 
         this.driver = driver;

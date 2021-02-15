@@ -7,20 +7,21 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import pages.signInPage;;
-
+import pages.signInPage;
+import pages.searchPage;
+import pages.shoppingCartSummaryPage;
+import pages.signOut;
 public class shoppingPortalSteps {
 
     WebDriver driver = null;
     signInPage signin;
+    searchPage search;
+    shoppingCartSummaryPage shopping;
+    signOut logout;
 
-    @Given("Login to shopping portal")
-    public void login_to_shopping_portal() {
 
-        String projectpath = System.getProperty("user.dir");
-        System.out.println("The current path:" + projectpath);
-        System.setProperty("webdriver.chrome.driver", projectpath + "/src/test/resources/Drivers/chromedriver.exe");
-
+    @Given("User logged in to the Shopping Portal")
+    public void user_logged_in_to_the_shopping_portal() {
         WebDriverManager.chromedriver().clearPreferences();
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
@@ -29,30 +30,28 @@ public class shoppingPortalSteps {
 
         signin = new signInPage(driver);
         signin.signIn("pavishanmugam17@gmail.com", "Sairampavi@17");
+    }
+    @When("User adds the selected T-Shirt for checkout")
+    public void user_adds_the_selected_t_shirt_for_checkout() throws InterruptedException {
+        search = new searchPage(driver);
+        search.TShirt_selected();
 
     }
 
-    @When("User search for T-shirt")
-    public void user_search_for_t_shirt() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+    @When("User fills all required fields to place the order")
+    public void user_fills_all_required_fields_to_place_the_order() {
+        shopping = new shoppingCartSummaryPage(driver);
+        shopping.placingOrder();
+
     }
 
-    @When("Add to the shopping cart")
-    public void add_to_the_shopping_cart() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
-    }
+    @Then("Verify the Order History for the placed order")
+    public void verify_the_order_history_for_the_placed_order() {
 
-    @Then("Checkout and place the order")
-    public void checkout_and_place_the_order() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
     }
-
-    @Given("Verify the Order")
-    public void verify_the_order() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+    @Then("User signed out from the page")
+    public void user_signed_out_from_the_page() {
+      logout = new signOut(driver);
+      logout.logout();
     }
 }
