@@ -1,16 +1,9 @@
 package pages;
 
-import net.bytebuddy.implementation.bind.MethodDelegationBinder;
+
 import org.openqa.selenium.By;
-
-import java.util.Iterator;
-import java.util.Set;
-import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 
-import static java.lang.Thread.sleep;
 
 
 public class searchPage {
@@ -19,6 +12,7 @@ public class searchPage {
     private By img_TShirt = By.className("product_img_link");
     private By add_to_cart = By.id("add_to_cart");
     private By proceed_to_checkout1 = By.className("btn btn-default button button-medium");
+
 
     public searchPage(WebDriver driver){
 
@@ -30,11 +24,16 @@ public class searchPage {
 
     }
 
-    public void TShirt_selected() throws InterruptedException {
-        driver.findElement(link_TShirt).click();
-        driver.findElement(img_TShirt).click();
-        driver.findElement(add_to_cart).click();
-        Thread.sleep(5000);
+    public void TShirt_selected()  {
+
+        try {
+            driver.findElement(link_TShirt).click();
+            driver.findElement(img_TShirt).click();
+            driver.findElement(add_to_cart).click();
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         //driver.findElement(proceed_to_checkout1).click();
 
 

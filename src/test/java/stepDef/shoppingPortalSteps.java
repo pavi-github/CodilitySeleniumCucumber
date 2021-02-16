@@ -27,19 +27,18 @@ public class shoppingPortalSteps {
         driver = new ChromeDriver();
         driver.navigate().to("http://automationpractice.com/");
         driver.manage().window().maximize();
-
         signin = new signInPage(driver);
         signin.signIn("pavishanmugam17@gmail.com", "Sairampavi@17");
     }
     @When("User adds the selected T-Shirt for checkout")
-    public void user_adds_the_selected_t_shirt_for_checkout() throws InterruptedException {
+    public void user_adds_the_selected_t_shirt_for_checkout() {
         search = new searchPage(driver);
         search.TShirt_selected();
 
     }
 
     @When("User fills all required fields to place the order")
-    public void user_fills_all_required_fields_to_place_the_order() {
+    public void user_fills_all_required_fields_to_place_the_order()  {
         shopping = new shoppingCartSummaryPage(driver);
         shopping.placingOrder();
 

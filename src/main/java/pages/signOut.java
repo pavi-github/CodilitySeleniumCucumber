@@ -18,3 +18,5 @@ public class signOut {
         driver.findElement(link_signout).click();
     }
 }
+
+
