@@ -1,21 +1,18 @@
 package pages;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-public class signOut {
-    protected WebDriver driver;
-    private By link_signout = By.className("logout");
+import driver.DriverManager;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
-    public signOut(WebDriver driver) {
+public class signOut extends DriverManager {
 
-        this.driver = driver;
-        if (driver.getTitle().equals("TestProject Demo")) {
-            System.out.println("The current URL is:" + driver.getCurrentUrl());
-        }
+    @FindBy(className = "logout")
+    private WebElement link_signout;
 
-    }
+
 
     public void logout() {
-        driver.findElement(link_signout).click();
+
+        link_signout.click();
     }
 }
 

@@ -1,51 +1,74 @@
 package pages;
 
+import driver.DriverManager;
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import static java.lang.Thread.sleep;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
-public class shoppingCartSummaryPage {
-    protected WebDriver driver;
-    private By summary_proceed_to_checkout2 = By.xpath("//*[@id=\"center_column\"]/p[2]/a[1]");
-    private By address_proceed_to_checkout3 = By.name("processAddress");
-    private By shipping_checkbox = By.id("cgv");
-    private By shipping_proceed_to_checkout4 = By.name("processCarrier");
-    private By payment_select_payment_by_bank = By.className("bankwire");
-   // private By confirm_order = By.className("button btn btn-default button-medium");
-   private By confirm_order = By.xpath("//*[@id=\"cart_navigation\"]/button");
 
-    private By back_to_orders = By.xpath("//*[@id=\"center_column\"]/p/a");
-    private By order_history = By.xpath("//*[@id=\"order-list\"]/tbody/tr[1]/td[1]/a");
+public class shoppingCartSummaryPage extends DriverManager {
 
-    public shoppingCartSummaryPage(WebDriver driver){
+    @FindBy(xpath = "//*[@id=\"center_column\"]/p[2]/a[1]")
+    private WebElement summary_proceed_to_checkout;
 
-        this.driver = driver;
-        if(driver.getTitle().equals("TestProject Demo"))
-        {
-            System.out.println("The current URL is:" +driver.getCurrentUrl());
-        }
+    @FindBy(name = "processAddress")
+    private WebElement address_proceed_to_checkout;
 
-    }
+    @FindBy(id = "cgv")
+    private WebElement shipping_checkbox;
+
+    @FindBy(name = "processCarrier")
+    private WebElement shipping_proceed_to_checkout;
+
+    @FindBy(className = "bankwire")
+    private WebElement payment_select_payment_by_bank;
+
+    @FindBy(xpath = "//*[@id=\"cart_navigation\"]/button")
+    private WebElement confirm_order;
+
+    @FindBy(xpath = "/html/body/div/div[2]/div/div[3]/div/div")
+    private WebElement order_num;
+
+    @FindBy(xpath = "//*[@id=\"center_column\"]/p/a")
+    private WebElement back_to_orders;
+
+    @FindBy(xpath = "//*[@id=\"order-list\"]/tbody/tr[1]/td[1]/a")
+    private WebElement order_history;
+    
+    private String orderNumber;
 
     public void placingOrder()  {
-        try {
-        driver.findElement(summary_proceed_to_checkout2).click();
-        driver.findElement(address_proceed_to_checkout3).click();
-        driver.findElement(shipping_checkbox).click();
-        driver.findElement(shipping_proceed_to_checkout4).click();
-        driver.findElement(payment_select_payment_by_bank).click();
+        summary_proceed_to_checkout.click();
+        address_proceed_to_checkout.click();
+        shipping_checkbox.click();
+        shipping_proceed_to_checkout.click();
+        payment_select_payment_by_bank.click();
 
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        driver.findElement(confirm_order).click();
-          driver.findElement(back_to_orders).click();
+        sleep(5000);
+
+        confirm_order.click();
+        String orderNum = order_num.getText();
+        String orderNo [] = orderNum.split("\n");
+
+        orderNo[6] = orderNo[6].replace("- Do not forget to insert your order reference ","").replace(" in the subject of your bank wire.", "");
+
+        System.out.println("Order Number is " + orderNo[6]);
+        setOrderNumber(orderNo[6]);
+        back_to_orders.click();
     }
 
-    public void verifyorder()  {
-        Assert.assertEquals(driver.findElement(order_history).getText(), " MPWVIWHVK");
+    public void setOrderNumber(String orderNumber){
+        this.orderNumber = orderNumber;
+
+    }
+
+    public String getOrderNumber(){
+        return this.orderNumber;
+
+    }
+
+    public void verifyOrder()  {
+        Assert.assertEquals(order_history.getText(), getOrderNumber());
     }
 
 }

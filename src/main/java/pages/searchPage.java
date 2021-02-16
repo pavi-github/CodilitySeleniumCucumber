@@ -1,54 +1,34 @@
 package pages;
 
-
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-
-import java.util.Iterator;
-import java.util.Set;
+import driver.DriverManager;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 
-public class searchPage {
-    protected WebDriver driver;
-    private By link_TShirt = By.xpath("//*[@id=\"block_top_menu\"]/ul/li[3]/a");
-    private By img_TShirt = By.className("product_img_link");
-    private By add_to_cart = By.id("add_to_cart");
-    private By proceed_to_checkout1 = By.className("btn btn-default button button-medium");
+public class searchPage extends DriverManager {
+
+    @FindBy(xpath = "//li[3]/a[contains(text(),'T-shirts')]")
+    private WebElement link_TShirt;
+
+    @FindBy(xpath = "//a[contains(@title,'Faded Short Sleeve T-shirts')]")
+    private WebElement img_TShirt;
+
+    @FindBy(xpath = "//button/span[contains(text(),'Add to cart')]")
+    private WebElement add_to_cart;
+
+    @FindBy(xpath = "//span[contains(text(),'Proceed to checkout')]")
+    private WebElement proceed_to_checkout;
 
 
-    public searchPage(WebDriver driver){
+    public void TShirt_selected() {
+            link_TShirt.click();
+            img_TShirt.click();
+            driver.switchTo().frame(0);
+            sleep(2000);
 
-        this.driver = driver;
-        if(driver.getTitle().equals("TestProject Demo"))
-        {
-            System.out.println("The current URL is:" +driver.getCurrentUrl());
-        }
-    }
+            add_to_cart.click();
+            sleep(5000);
 
-    public void TShirt_selected()  {
-        try {
-            driver.findElement(link_TShirt).click();
-            driver.findElement(img_TShirt).click();
-            driver.findElement(add_to_cart).click();
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        String parent=driver.getWindowHandle();
-        Set<String> s=driver.getWindowHandles();
-        Iterator<String> I1= s.iterator();
-        while(I1.hasNext())
-        {
-            String child_window=I1.next();
-            if(!parent.equals(child_window))
-            {
-                driver.switchTo().window(child_window);
-                driver.findElement(proceed_to_checkout1).click();
-                driver.close();
-            }
-        }
-        driver.switchTo().window(parent);
-
+            proceed_to_checkout.click();
     }
 }
