@@ -1,6 +1,7 @@
 package stepDef;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -46,6 +47,7 @@ public class shoppingPortalSteps {
 
     @Then("Verify the Order History for the placed order")
     public void verify_the_order_history_for_the_placed_order() {
+        shopping.verifyorder();
 
     }
     @Then("User signed out from the page")

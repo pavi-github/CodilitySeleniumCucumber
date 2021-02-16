@@ -4,6 +4,8 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import java.util.Iterator;
+import java.util.Set;
 
 
 public class searchPage {
@@ -21,11 +23,9 @@ public class searchPage {
         {
             System.out.println("The current URL is:" +driver.getCurrentUrl());
         }
-
     }
 
     public void TShirt_selected()  {
-
         try {
             driver.findElement(link_TShirt).click();
             driver.findElement(img_TShirt).click();
@@ -34,8 +34,21 @@ public class searchPage {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        //driver.findElement(proceed_to_checkout1).click();
 
+        String parent=driver.getWindowHandle();
+        Set<String> s=driver.getWindowHandles();
+        Iterator<String> I1= s.iterator();
+        while(I1.hasNext())
+        {
+            String child_window=I1.next();
+            if(!parent.equals(child_window))
+            {
+                driver.switchTo().window(child_window);
+                driver.findElement(proceed_to_checkout1).click();
+                driver.close();
+            }
+        }
+        driver.switchTo().window(parent);
 
     }
 }

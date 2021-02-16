@@ -1,5 +1,6 @@
 package pages;
 
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import static java.lang.Thread.sleep;
@@ -42,4 +43,9 @@ public class shoppingCartSummaryPage {
         driver.findElement(confirm_order).click();
           driver.findElement(back_to_orders).click();
     }
+
+    public void verifyorder()  {
+        Assert.assertEquals(driver.findElement(order_history).getText(), " MPWVIWHVK");
+    }
+
 }
