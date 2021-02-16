@@ -7,7 +7,6 @@ import io.cucumber.junit.CucumberOptions;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(features="src/test/resources/Features", glue= {"stepDef"},
-        tags = "@Order",
         monochrome=true, plugin= {"pretty","json:target/JSONReports/report.json",
         "html:target/HtmlReports"}
 )
